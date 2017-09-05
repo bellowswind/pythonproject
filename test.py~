@@ -8,7 +8,6 @@ import random
 import time
 
 result = os.popen("git log").read()
-print result
 
 result_array = result.split('\n')
 
@@ -73,11 +72,12 @@ for s in id_lists:
 	time_lists.append(randomDate(str(start_date), str(end_date), random.random()))
 time_lists = sorted(time_lists, reverse=True)
 
+os.system('git stash drop')
 zipped_list = zip(id_lists, time_lists)
 for x, y in zipped_list:
 	command_str = ''
 	date_time = y.split(' ')
 	command_str = 'git commit --amend --date="' + str(date_time[0]) + 'T' + str(date_time[1]) + '±00:01" -C ' + str(x)
 	os.system(command_str)
-#os.system('git filter-branch -f --env-filter \'export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"' -- --all')
+os.system('git filter-branch -f --env-filter \'export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"\' -- --allsss')
 
